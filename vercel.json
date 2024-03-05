@@ -6,10 +6,16 @@
       "use": "@vercel/node"
     }
   ],
-  "public":[
+  "routes": [
     {
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "public": {
+    "ignore": [
+      "app.js",
+      "node_modules/"
+    ]
+  }
 }
