@@ -7,19 +7,18 @@ const path = require('path');
 const http = require('http');
 const WebSocket = require('ws');
 const { MongoClient } = require('mongodb');
+const cors = require('cors'); // Import the CORS middleware
 
 // Create Express application
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log (`Listening to port ${port}`));
 
 // Middleware to parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(cors());
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
@@ -441,6 +440,12 @@ wss.on('connection', (ws) => {
   if (latestTagId !== '' && ws.readyState === WebSocket.OPEN) {
     ws.send(latestTagId);
   }
+});
+
+const port = process.env.PORT || 3000;
+// Start the server and listen on the specified port
+server.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
 });
 
 
