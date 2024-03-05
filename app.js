@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 
 // Import required modules
 const express = require('express');
@@ -8,13 +8,13 @@ const http = require('http');
 const WebSocket = require('ws');
 const { MongoClient } = require('mongodb');
 const cors = require('cors'); // Import the CORS middleware
-
+const dotenv = require('dotenv');
 // Create Express application
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-
+dotenv.config();
 // Middleware to parse incoming request bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
