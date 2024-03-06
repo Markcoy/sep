@@ -87,10 +87,19 @@
       updateTable(data);
     });
 
-    // Connection closed
-    socket.addEventListener('close', (event) => {
-      console.log('WebSocket connection closed');
-    });
+// Error event handler
+socket.addEventListener('error', (error) => {
+  console.error('WebSocket encountered an error:', error);
+});
+
+    // Connection closed event handler
+socket.addEventListener('close', (event) => {
+  console.log('WebSocket connection closed. Attempting to reconnect...');
+  // Attempt to reconnect after a delay
+  setTimeout(() => {
+    socket = new WebSocket('wss://sep-backend-dev.onrender.com');
+  }, 3000); // Reconnect after 3 seconds
+});
 
     function updateTable(data) {
     const rfidTable = document.getElementById('rfid-table').getElementsByTagName('tbody')[0];

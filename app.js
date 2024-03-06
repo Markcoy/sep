@@ -12,7 +12,7 @@ const dotenv = require('dotenv');
 // Create Express application
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server, clientTracking: true, secure: true });
 
 dotenv.config();
 // Middleware to parse incoming request bodies
